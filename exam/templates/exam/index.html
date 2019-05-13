@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script type="text/javascript">
+
+        function ajax(url, isCrossDomain) {
+         
+            if (isCrossDomain) {
+                
+                var obj = document.createElement("script");
+                obj.src = url;
+                document.body.appendChild(obj);
+            }
+            else {
+                var xmlhttp = new XMLHttpRequest();
+                xmlhttp.onreadystatechange = function () {
+                    if (this.readyState == 4 && this.status == 200) {
+                        ajaxHandler(JSON.parse(this.responseText));
+                    }
+                };
+                xmlhttp.open("GET", url, true);
+                xmlhttp.send();
+            }
+        }
+
+        function getAlbums() {
+            url = 'http://localhost:8000/albums/';
+            //url = 'http://127.0.0.1:8000/albums/';
+            //url = 'http://127.0.0.1:8000/albums/?jsonp=ajaxHandler';
+            ajax(url, false);    
+            //ajax(url, true);    
+        }
+
+        function ajaxHandler(text) {
+            alert(JSON.stringify(text));
+           // alert(text[0]['name']);
+            //document.getElementById('content').innerHTML = JSON.stringify(jsonResponse);
+        }
+
+    </script>
+</head>
+
+<body>
+    <button onclick="getAlbums()">Get Albums</button>
+    <br><br>
+    <div id="content"></div>
+</body>
+
+</html>
