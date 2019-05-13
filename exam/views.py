@@ -41,3 +41,21 @@ class AlbumView(APIView):
         # response["Access-Control-Max-Age"] = "1000"
         # response["Access-Control-Allow-Headers"] = "*"
         return response
+
+import json
+def get_albums(request):
+    print('get_albums')
+    file = open('logger.txt', 'r')
+    contents = file.read()
+    file.close()
+    file = open('logger.txt', "w")
+    file.write(contents + '\nrequest')
+    file.close()
+    if 'jsonp' in request.GET: 
+        return HttpResponse(f'{request.GET["jsonp"]}({Album.get_all()});' , status=status.HTTP_200_OK)
+    response = HttpResponse(json.dumps(Album.get_all()))
+    # response["Access-Control-Allow-Origin"] = "*"
+    # response["Access-Control-Allow-Methods"] = "POST, GET, OPTIONS"
+    # response["Access-Control-Max-Age"] = "1000"
+    # response["Access-Control-Allow-Headers"] = "*"
+    return response

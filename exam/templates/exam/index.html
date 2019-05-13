@@ -11,7 +11,7 @@
         function ajax(url, isCrossDomain) {
          
             if (isCrossDomain) {
-                
+                alert('crossDomain');
                 var obj = document.createElement("script");
                 obj.src = url;
                 document.body.appendChild(obj);
@@ -29,7 +29,7 @@
         }
 
         function getAlbums() {
-            url = 'http://localhost:8000/albums/';
+            //url = 'http://localhost:8000/albums/';
             //url = 'http://127.0.0.1:8000/albums/';
             //url = 'http://127.0.0.1:8000/albums/?jsonp=ajaxHandler';
             ajax(url, false);    
